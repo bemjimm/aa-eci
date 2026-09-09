@@ -24,12 +24,30 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Restore registry
         run: bash scripts/state.sh restore
+      - name: Restore last published site
+        run: bash scripts/site.sh restore
       - name: Collect and build
+        id: build
+        continue-on-error: true
         env:
           AA_API_KEY: ${{ secrets.AA_API_KEY }}
         run: python run.py
+      - name: Notice stale publish
+        if: steps.build.outcome != 'success'
+        run: echo "::warning::数据源采集未成功，正在重新发布上次构建的缓存页面。"
       - name: Persist registry
+        if: steps.build.outcome == 'success'
         run: bash scripts/state.sh save
+      - name: Save site cache
+        if: steps.build.outcome == 'success'
+        run: bash scripts/site.sh save
+      - name: Ensure site exists
+        if: steps.build.outcome != 'success'
+        run: |
+          if [ ! -s dist/index.html ]; then
+            mkdir -p dist
+            printf '<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>大模型选型表</title><body style="font-family:system-ui,sans-serif;max-width:40rem;margin:4rem auto;padding:0 1rem"><h1>大模型选型表</h1><p>今日数据采集未完成，稍后自动重试；恢复后此提示自动消失。</p></body>' > dist/index.html
+          fi
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
