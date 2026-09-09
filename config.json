@@ -1,0 +1,11 @@
+{
+  "usd_cny": 7,
+  "matching": {
+    "date_tolerance_days": 3
+  },
+  "sources": {
+    "aa": "https://artificialanalysis.ai/api/v2/language/models/free",
+    "epoch_scores": "https://epoch.ai/data/eci_scores.csv",
+    "epoch_metadata": "https://epoch.ai/data/benchmark_data.zip"
+  }
+}

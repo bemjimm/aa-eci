@@ -1,0 +1,1 @@
+"""AA × ECI aggregation pipeline."""

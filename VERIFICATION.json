@@ -1,0 +1,15 @@
+{
+  "test_data": "synthetic",
+  "unit_tests": 21,
+  "browser": "Chromium",
+  "desktop": "passed",
+  "mobile": "passed",
+  "filter_same_configuration": "passed",
+  "sorting_null_last": "passed",
+  "currency_and_total": "passed",
+  "csv_all_filtered_configurations": "passed",
+  "console_errors": [],
+  "live_collection": "not_run_no_api_key_and_network_unavailable",
+  "state_branch_restore_save_twice": "passed_on_local_bare_git_remote",
+  "github_actions_live_deployment": "not_run"
+}

@@ -1,0 +1,13 @@
+{
+  "creators": {},
+  "names": {},
+  "series": {},
+  "aa_to_epoch": {
+    "claude-3-opus": "Claude 3 Opus",
+    "claude-3-sonnet": "Claude 3 Sonnet",
+    "gemini-1-0-pro": "Gemini 1.0 Pro",
+    "glm-5-3": "GLM-5.3",
+    "glm-5-3-flash": "GLM-5.3-Flash"
+  },
+  "separate_aa_slugs": []
+}

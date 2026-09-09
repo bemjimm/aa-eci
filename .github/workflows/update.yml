@@ -1,0 +1,48 @@
+name: Update AA ECI table
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 2 * * *'
+concurrency:
+  group: aa-eci-pipeline
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Test
+        run: python -m unittest discover -s tests -v
+      - name: Restore registry
+        run: bash scripts/state.sh restore
+      - name: Collect and build
+        env:
+          AA_API_KEY: ${{ secrets.AA_API_KEY }}
+        run: python run.py
+      - name: Persist registry
+        run: bash scripts/state.sh save
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

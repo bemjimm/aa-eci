@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<title>大模型选型表 · AA × ECI</title>
+<style>__STYLE__</style>
+</head>
+<body>
+<main>
+<header><h1 data-i18n="h1">大模型选型表</h1><div class="headright"><span id="snapshot"></span><button id="copylink" type="button" data-i18n="copylink">复制链接</button><button id="export" type="button" data-i18n="export">导出 CSV</button><button id="lang" type="button" aria-label="切换语言 / Switch language">EN</button></div></header>
+<section class="controls" aria-label="表格筛选与排序">
+<div class="line">
+<label class="search"><span class="sr" data-i18n="srSearch">搜索模型</span><input id="search" type="search" data-i18n-placeholder="searchPh" placeholder="搜索模型、厂商、系列、日期…" autocomplete="off"></label>
+<label><span data-i18n="aaPre">AA 前</span> <input id="aaTop" type="number" min="1" step="1" value="100" aria-label="AA 名次上限"> <span data-i18n="aaPost">名</span></label>
+<label><span data-i18n="eciPre">ECI 前</span> <input id="eciTop" type="number" min="1" step="1" data-i18n-placeholder="phAny" placeholder="不限" aria-label="ECI 名次上限"> <span data-i18n="eciPost">名</span></label>
+<label><span data-i18n="costPre">单任务 ≤ ¥</span> <input id="costMax" type="number" min="0" step="any" data-i18n-placeholder="phAny" placeholder="不限" aria-label="最高单任务人民币成本"><span data-i18n="costPost"></span></label>
+<button id="reset" class="text" type="button" data-i18n="reset">重置</button>
+</div>
+</section>
+<div class="summary"><span id="counts" aria-live="polite"></span><span id="indexVersion"></span></div>
+<div class="tablewrap" tabindex="0" role="region" aria-label="模型数据表">
+<table>
+<thead><tr>
+<th data-key="name" aria-sort="none"><button data-sort="name" data-i18n-title="tt_name"><span data-i18n="h_name">模型 / 配置</span> <i>↕</i></button></th>
+<th data-key="aa" aria-sort="descending" class="num"><button data-sort="aa" data-i18n-title="tt_aa">AA <i>↓</i></button></th>
+<th data-key="eci" aria-sort="none" class="num"><button data-sort="eci" data-i18n-title="tt_eci">ECI <i>↕</i></button></th>
+<th data-key="cost" aria-sort="none" class="num"><button data-sort="cost" data-i18n-title="tt_cost"><span data-i18n="h_cost">单任务（¥）</span> <i>↕</i></button></th>
+<th data-key="date" aria-sort="none" class="num"><button data-sort="date"><span data-i18n="h_date">发布</span> <i>↕</i></button></th>
+</tr></thead>
+<tbody id="rows"></tbody>
+</table>
+<div id="empty" hidden><span data-i18n="empty">没有符合条件的模型</span> <button id="clearEmpty" type="button" data-i18n="clear">清除筛选</button></div>
+</div>
+<footer><div class="source"><a href="https://artificialanalysis.ai/leaderboards/models" target="_blank" rel="noopener noreferrer">Artificial Analysis</a><span>·</span><a href="https://epoch.ai/eci?view=graph&tab=leaderboard" target="_blank" rel="noopener noreferrer">Epoch AI</a></div><div class="pager"><select id="pageSize" aria-label="每页条数"><option value="50">每页 50</option><option value="100">每页 100</option><option value="200">每页 200</option><option value="0">全部</option></select><button id="previous" type="button" aria-label="上一页">‹</button><span id="pageInfo"></span><button id="next" type="button" aria-label="下一页">›</button></div></footer>
+</main>
+<script id="dataset" type="application/json">__DATA__</script>
+<script>__SCRIPT__</script>
+</body>
+</html>
